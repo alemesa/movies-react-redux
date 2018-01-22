@@ -1,0 +1,14 @@
+@import '../../styles/shared.scss';
+
+.Movie {
+  transition: 0.3s all ease-in;
+  &:hover {
+    transform: scale(1.03);
+    cursor: pointer;
+  }
+
+  img {
+    width: 154px;
+    @include gpu;
+  }
+}

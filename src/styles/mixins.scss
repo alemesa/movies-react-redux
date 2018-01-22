@@ -1,0 +1,118 @@
+// Sass Mixins
+//
+// More information about mixins in:
+// http://sass-lang.com/documentation/file.SASS_REFERENCE.html#mixins
+@import 'vars.scss';
+@import url('https://fonts.googleapis.com/css?family=Quando|Titillium+Web:300,400,600');
+
+@mixin font-header() {
+  font-family: 'Quando', $generic-serif-fonts;
+  font-weight: 400;
+}
+
+@mixin font-light() {
+  font-family: 'Titillium Web', $generic-sans-serif-fonts;
+  font-weight: 300;
+}
+
+@mixin font-medium() {
+  font-family: 'Titillium Web', $generic-sans-serif-fonts;
+  font-weight: 400;
+}
+
+@mixin font-bold() {
+  font-family: 'Titillium Web', $generic-sans-serif-fonts;
+  font-weight: 600;
+}
+
+@mixin gpu {
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  .safari & {
+    perspective: none; // otherwise text and icons become blurry
+  }
+}
+
+@mixin full-size {
+  width: 100%;
+  height: 100%;
+}
+
+@mixin position-0 {
+  top: 0;
+  left: 0;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-center-vert {
+  display: flex;
+  align-items: center;
+}
+
+@mixin flex-center-horiz {
+  display: flex;
+  justify-content: center;
+}
+
+@mixin transform-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+@mixin transform-center-vert {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@mixin transform-center-horiz {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@mixin noselect {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}
+
+@mixin flex-space-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+@mixin flex-space-around {
+  display: flex;
+  justify-content: space-around;
+}
+
+@mixin flex-start {
+  display: flex;
+  justify-content: flex-start;
+}
+
+@mixin flex-end {
+  display: flex;
+  justify-content: flex-end;
+}
+
+@mixin autoAlpha-0 {
+  visibility: hidden;
+  opacity: 0;
+}
+
+@mixin autoAlpha-1 {
+  visibility: visible;
+  opacity: 1;
+}

@@ -1,0 +1,14 @@
+@import '../../styles/shared.scss';
+
+.Footer {
+  background: black;
+  color: white;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  > div {
+    @include flex-center;
+    min-height: 5rem;
+  }
+}

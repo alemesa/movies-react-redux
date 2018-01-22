@@ -1,0 +1,7 @@
+@import './styles/shared.scss';
+
+.App {
+  @include font-medium;
+  color: $red;
+  text-align: center;
+}

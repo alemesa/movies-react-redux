@@ -1,0 +1,23 @@
+@import '../../styles/shared.scss';
+
+.Header {
+  .header-logo {
+    width: 40px;
+  }
+  background: black;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 5rem;
+  padding-left: 1rem;
+
+  a {
+    color: white;
+    font-size: 1rem;
+    text-decoration: none;
+    margin-right: 2rem;
+    img {
+      vertical-align: middle;
+    }
+  }
+}
