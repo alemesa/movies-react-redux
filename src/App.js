@@ -5,6 +5,8 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import MoviesList from './components/MoviesList/MoviesList';
 import MovieDetail from './components/MovieDetail/MovieDetail';
+import SearchMovie from './components/SearchMovie/SearchMovie';
+import UpcomingList from './components/UpcomingList/UpcomingList';
 
 const App = () => (
   <Router>
@@ -12,6 +14,8 @@ const App = () => (
       <Header />
       <Switch>
         <Route exact path="/" component={MoviesList} />
+        <Route path="/search" component={SearchMovie} />
+        <Route path="/upcoming" component={UpcomingList} />
         <Route path="/movie/:id" component={MovieDetail} />
       </Switch>
       <Footer />

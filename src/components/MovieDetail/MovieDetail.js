@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import styled from 'styled-components';
 import './MovieDetail.css';
 import { getSpecificMovieById, BACKDROP_PATH, POSTER_PATH } from '../../util/api';
+import Overdrive from 'react-overdrive';
 
 class MovieDetail extends Component {
   constructor(props) {
@@ -33,8 +35,10 @@ class MovieDetail extends Component {
     return (
       <div className={processedClassName} ref={c => (this.container = c)}>
         <img src={`${BACKDROP_PATH}${movie.backdrop_path}`} alt={movie.original_title} />
-        <img src={`${POSTER_PATH}${movie.poster_path}`} alt={movie.original_title} />
-        <h2>{movie.title}</h2>
+        <Overdrive id={movie.id}>
+          <img src={`${POSTER_PATH}${movie.poster_path}`} alt={movie.original_title} />
+        </Overdrive>
+        <MovieHeader>{movie.title}</MovieHeader>
         <h6>{movie.tagline}</h6>
         <p>{movie.overview}</p>
       </div>
@@ -50,3 +54,8 @@ MovieDetail.defaultProps = {
   className: ''
 };
 export default MovieDetail;
+
+const MovieHeader = styled.h1`
+  background: blue;
+  font-size: 2rem;
+`;
