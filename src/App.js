@@ -7,20 +7,32 @@ import MoviesList from './components/MoviesList/MoviesList';
 import MovieDetail from './components/MovieDetail/MovieDetail';
 import SearchMovie from './components/SearchMovie/SearchMovie';
 import UpcomingList from './components/UpcomingList/UpcomingList';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import rootReducer from './redux/rootReducer';
+import logger from 'redux-logger';
+import Toggle from './components/Toggle/Toggle';
+
+const middleware = [logger];
+const store = createStore(rootReducer, {}, composeWithDevTools(applyMiddleware(...middleware)));
 
 const App = () => (
-  <Router>
-    <div className="App">
-      <Header />
-      <Switch>
-        <Route exact path="/" component={MoviesList} />
-        <Route path="/search" component={SearchMovie} />
-        <Route path="/upcoming" component={UpcomingList} />
-        <Route path="/movie/:id" component={MovieDetail} />
-      </Switch>
-      <Footer />
-    </div>
-  </Router>
+  <Provider store={store}>
+    <Router>
+      <div className="App">
+        <Header />
+        <Toggle />
+        <Switch>
+          <Route exact path="/" component={MoviesList} />
+          <Route path="/search" component={SearchMovie} />
+          <Route path="/upcoming" component={UpcomingList} />
+          <Route path="/movie/:id" component={MovieDetail} />
+        </Switch>
+        <Footer />
+      </div>
+    </Router>
+  </Provider>
 );
 
 export default App;
