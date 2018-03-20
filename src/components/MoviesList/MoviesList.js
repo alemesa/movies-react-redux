@@ -3,24 +3,23 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import './MoviesList.css';
 import Movie from '../Movie/Movie';
-import { getPopularMovies } from '../../util/api';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getMovies } from './../../redux/actions';
+import { getPopularMovies } from './../../redux/actions';
 
 class MoviesList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      movies: []
+      popularMovies: []
     };
   }
 
   async componentDidMount() {
     try {
-      await this.props.getMovies();
+      await this.props.getPopularMovies();
       this.setState({
-        movies: this.props.movies
+        popularMovies: this.props.popularMovies
       });
     } catch (e) {
       console.log('Error ', e);
@@ -32,20 +31,22 @@ class MoviesList extends Component {
     const processedClassName = classnames('MoviesList', className);
     return (
       <div className={processedClassName} ref={c => (this.container = c)}>
-        {this.state.movies.map((movie, key) => <Movie key={movie.id} id={movie.id} title={movie.title} poster={movie.poster_path} />)}
+        {this.state.popularMovies.map((movie, key) => (
+          <Movie key={movie.id} id={movie.id} title={movie.title} poster={movie.poster_path} />
+        ))}
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  movies: state.message.movies
+  popularMovies: state.moviesState.popular
 });
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      getMovies
+      getPopularMovies
     },
     dispatch
   );

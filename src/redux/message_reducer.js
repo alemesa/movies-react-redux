@@ -1,8 +1,7 @@
 import keys from './keys';
 
 const initialState = {
-  messageVisibility: false,
-  movies: []
+  messageVisibility: false
 };
 
 export default function(state = initialState, action) {
@@ -10,10 +9,6 @@ export default function(state = initialState, action) {
     case keys.TOGGLE_MESSAGE: {
       return { ...state, messageVisibility: !state.messageVisibility };
     }
-    case keys.GET_MOVIES: {
-      return { ...state, movies: action.data };
-    }
-
     default: {
       return state;
     }

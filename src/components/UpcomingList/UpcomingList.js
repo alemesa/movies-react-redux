@@ -3,26 +3,24 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import './UpcomingList.css';
 import Movie from '../Movie/Movie';
-import { getUpcomingMovies, getSpecificMovieById } from '../../util/api';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { getUpcomingMovies } from './../../redux/actions';
 
-export default class UpcomingList extends Component {
+class UpcomingList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      movies: []
+      upcomingMovies: []
     };
   }
 
   async componentDidMount() {
     try {
-      const res = await getUpcomingMovies();
-      const movies = await res.json();
-
+      await this.props.getUpcomingMovies();
       this.setState({
-        movies: movies.results
+        upcomingMovies: this.props.upcomingMovies
       });
-
-      console.log(this.state.movies);
     } catch (e) {
       console.log('Error ', e);
     }
@@ -33,10 +31,24 @@ export default class UpcomingList extends Component {
     const processedClassName = classnames('UpcomingList', className);
     return (
       <div className={processedClassName} ref={c => (this.container = c)}>
-        {this.state.movies.map((movie, key) => (
+        {this.state.upcomingMovies.map((movie, key) => (
           <Movie key={movie.id} id={movie.id} title={movie.title} poster={movie.poster_path} release_date={movie.release_date} />
         ))}
       </div>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  upcomingMovies: state.moviesState.upcoming
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      getUpcomingMovies
+    },
+    dispatch
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(UpcomingList);

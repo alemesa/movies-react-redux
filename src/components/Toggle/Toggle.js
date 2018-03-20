@@ -32,7 +32,7 @@ Toggle.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  messageVisibility: state.message.messageVisibility
+  messageVisibility: state.messageState.messageVisibility
 });
 
 const mapDispatchToProps = dispatch =>

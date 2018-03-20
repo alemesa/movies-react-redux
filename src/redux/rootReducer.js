@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import message from './reducer';
+import messageState from './message_reducer';
+import moviesState from './movies_reducer';
 
 const rootReducer = combineReducers({
-  message
+  messageState,
+  moviesState
 });
 
 export default rootReducer;
