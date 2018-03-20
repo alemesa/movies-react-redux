@@ -4,7 +4,6 @@ import classnames from 'classnames';
 import './Movie.css';
 import { POSTER_PATH } from '../../util/api';
 import { Link } from 'react-router-dom';
-import Overdrive from 'react-overdrive';
 
 class Movie extends Component {
   constructor(props) {
@@ -25,9 +24,8 @@ class Movie extends Component {
     return (
       <div className={processedClassName} ref={c => (this.container = c)}>
         <Link to={`/movie/${id}`}>
-          <Overdrive id={id}>
-            <img src={posterSrc} alt={title} />
-          </Overdrive>
+          <img src={posterSrc} alt={title} />
+
           {this.props.release_date && <h3>{new Date(this.props.release_date).toDateString().slice(4)}</h3>}
         </Link>
       </div>

@@ -4,11 +4,16 @@ import classnames from 'classnames';
 import './Header.css';
 import Logo from '../../assets/svgs/movie_logo.svg';
 import { Link } from 'react-router-dom';
+import animate from '../../util/gsap-animate';
 
 class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+  }
+
+  componentDidMount() {
+    //animate.fromTo(this.container, 3, { autoAlpha: 0 }, { autoAlpha: 1, delay: 0.2 }).then(() => {});
   }
 
   render() {
