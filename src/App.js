@@ -13,8 +13,9 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './redux/rootReducer';
 import logger from 'redux-logger';
 import Toggle from './components/Toggle/Toggle';
+import thunk from 'redux-thunk';
 
-const middleware = [logger];
+const middleware = [logger, thunk];
 const store = createStore(rootReducer, {}, composeWithDevTools(applyMiddleware(...middleware)));
 
 const App = () => (

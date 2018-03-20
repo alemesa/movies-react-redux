@@ -4,8 +4,11 @@ import classnames from 'classnames';
 import './MoviesList.css';
 import Movie from '../Movie/Movie';
 import { getPopularMovies } from '../../util/api';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { getMovies } from './../../redux/actions';
 
-export default class MoviesList extends Component {
+class MoviesList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,11 +18,9 @@ export default class MoviesList extends Component {
 
   async componentDidMount() {
     try {
-      const res = await getPopularMovies();
-      const movies = await res.json();
-
+      await this.props.getMovies();
       this.setState({
-        movies: movies.results
+        movies: this.props.movies
       });
     } catch (e) {
       console.log('Error ', e);
@@ -36,3 +37,17 @@ export default class MoviesList extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  movies: state.message.movies
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      getMovies
+    },
+    dispatch
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(MoviesList);
