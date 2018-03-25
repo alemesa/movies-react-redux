@@ -12,7 +12,7 @@ class Toggle extends Component {
   };
 
   render() {
-    let { className, dispatch } = this.props;
+    let { className } = this.props;
     let processedClassName = classnames('Toggle', className);
     return (
       <div className={processedClassName} ref={c => (this.container = c)}>

@@ -13,7 +13,7 @@ class Header extends Component {
   }
 
   componentDidMount() {
-    //animate.fromTo(this.container, 3, { autoAlpha: 0 }, { autoAlpha: 1, delay: 0.2 }).then(() => {});
+    animate.fromTo(this.container, 0.1, { autoAlpha: 0 }, { autoAlpha: 1, delay: 0.2 }).then(() => {});
   }
 
   render() {

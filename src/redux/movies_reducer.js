@@ -2,7 +2,10 @@ import keys from './keys';
 
 const initialState = {
   popular: [],
-  upcoming: []
+  upcoming: [],
+  searched: [],
+  movie: {},
+  genres: []
 };
 
 export default function(state = initialState, action) {
@@ -12,6 +15,15 @@ export default function(state = initialState, action) {
     }
     case keys.GET_UPCOMING_MOVIES: {
       return { ...state, upcoming: action.data };
+    }
+    case keys.GET_MOVIE: {
+      return { ...state, movie: action.data };
+    }
+    case keys.GET_GENRES: {
+      return { ...state, genres: action.data };
+    }
+    case keys.GET_SEARCHED_MOVIES: {
+      return { ...state, searched: action.data };
     }
     default: {
       return state;

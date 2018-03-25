@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import './MoviesList.css';
 import Movie from '../Movie/Movie';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getPopularMovies } from './../../redux/actions';
+import { getPopularMovies, getGenres } from './../../redux/actions';
 
 class MoviesList extends Component {
   constructor(props) {
@@ -17,6 +16,7 @@ class MoviesList extends Component {
 
   async componentDidMount() {
     try {
+      this.props.getGenres();
       await this.props.getPopularMovies();
       this.setState({
         popularMovies: this.props.popularMovies
@@ -46,7 +46,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      getPopularMovies
+      getPopularMovies,
+      getGenres
     },
     dispatch
   );

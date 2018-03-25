@@ -3,23 +3,25 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import styled from 'styled-components';
 import './MovieDetail.css';
-import { getSpecificMovieById, BACKDROP_PATH, POSTER_PATH } from '../../util/api';
+import { BACKDROP_PATH, POSTER_PATH } from '../../util/api';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { getSpecificMovieById } from './../../redux/actions';
 
 class MovieDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      movie: {}
+      movie: ''
     };
   }
 
   async componentDidMount() {
     try {
-      const res = await getSpecificMovieById(this.props.match.params.id);
-      const movie = await res.json();
+      await this.props.getSpecificMovieById(this.props.match.params.id);
 
       this.setState({
-        movie: movie
+        movie: this.props.movie
       });
     } catch (e) {
       console.log('Error ', e);
@@ -28,7 +30,6 @@ class MovieDetail extends Component {
 
   render() {
     let { movie } = this.state;
-    console.log(movie);
     const { className } = this.props;
     const processedClassName = classnames('MovieDetail', className);
     return (
@@ -52,7 +53,20 @@ MovieDetail.propTypes = {
 MovieDetail.defaultProps = {
   className: ''
 };
-export default MovieDetail;
+
+const mapStateToProps = state => ({
+  movie: state.moviesState.movie
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      getSpecificMovieById
+    },
+    dispatch
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(MovieDetail);
 
 const MovieHeader = styled.h1`
   background: blue;

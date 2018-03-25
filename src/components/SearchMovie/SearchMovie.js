@@ -2,31 +2,35 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import './SearchMovie.css';
-import { getSearchMovies } from '../../util/api';
 import Movie from '../Movie/Movie';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { getSearchedMovies } from './../../redux/actions';
 
 class SearchMovie extends Component {
   constructor(props) {
     super(props);
     this.state = {
       value: '',
-      movies: []
+      searchedMovies: []
     };
   }
 
   componentDidMount() {
     window.addEventListener('keypress', event => {
-      if (event.keyCode == 13 || event.code == 'Enter') {
+      if (event.keyCode === 13 || event.code === 'Enter') {
         this.handleSubmit();
       }
     });
   }
 
   handleSubmit = async event => {
-    const res = await getSearchMovies(this.state.value);
-    const movies = await res.json();
-    await this.setState({ movies: movies.results });
-    console.log(this.state.movies);
+    try {
+      await this.props.getSearchedMovies(this.state.value);
+      this.setState({ searchedMovies: this.props.searchedMovies });
+    } catch (e) {
+      console.log('Error ', e);
+    }
   };
 
   handleChange = async event => {
@@ -48,7 +52,9 @@ class SearchMovie extends Component {
         />
         <button onClick={this.handleSubmit}>Submit</button>
         <h2>{this.state.value}</h2>
-        {this.state.movies.map((movie, key) => <Movie key={movie.id} id={movie.id} title={movie.title} poster={movie.poster_path} />)}
+        {this.state.searchedMovies.map((movie, key) => (
+          <Movie key={movie.id} id={movie.id} title={movie.title} poster={movie.poster_path} />
+        ))}
       </div>
     );
   }
@@ -61,4 +67,17 @@ SearchMovie.propTypes = {
 SearchMovie.defaultProps = {
   className: ''
 };
-export default SearchMovie;
+
+const mapStateToProps = state => ({
+  searchedMovies: state.moviesState.searched
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      getSearchedMovies
+    },
+    dispatch
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchMovie);
